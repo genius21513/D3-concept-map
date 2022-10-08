@@ -1,0 +1,66 @@
+.right {
+    width: 30%;
+    height: 100%;
+    position: absolute;
+    right: 1em;
+}
+
+.sections {
+    width: 100%;
+    height: 100%;
+    /* border: 2px solid black; */
+
+    /* cursor: pointer; */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.section {    
+    min-height: calc(100vh - 20%);
+    width: 80%;
+    margin: auto;
+    position: relative;
+    
+    transition: 1s;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sections {
+    display: none;
+}
+
+.sections.show {
+    display: block;    
+}
+
+.sections.show .section.active .title {
+    background-color: blueviolet;
+}
+
+/* @keyframes moving {
+    from {top: 80%;}
+    to {top: 10%;}
+  } */
+
+.section .title {
+    background-color: #2500db;
+    padding: 1rem 0.5rem;
+    color: white;
+    font-weight: bold;
+    font-size: 1.25rem;
+    text-align: left;
+    width: 100%;
+}
+
+.section .description {
+    padding: 1rem 0.5rem;    
+    /* overflow: hidden; */
+}
+
+/* .section text {
+    width: 10%;
+} */

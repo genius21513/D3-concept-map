@@ -1,6 +1,5 @@
 
 
-var i_c = [], e_c = [];
 
 function loadMapData() {
     var exports = jsonData.Export;
@@ -33,9 +32,8 @@ function loadMapData() {
 }
 
 loadMapData();
-init();
 
-function init() {
+// function init() {
 
     var icl = 0, ecl = 0;    //import & export country length
     var outer = d3.map();
@@ -45,7 +43,7 @@ function init() {
     var outerId = [0];
 
     i_c.forEach(function (d) {
-        i = { id: 'i' + inner.length, name: d[0], related_links: [] };
+        i = { id: 'i' + inner.length, name: d[0], related_links: [], no: inner.length };
         i.related_nodes = [i.id];
         inner.push(i);
 
@@ -330,40 +328,45 @@ function init() {
 
     // need to specify x/y/etc
 
-    // d3.select(self.frameElement).style("height", diameter - 150 + "px");
 
+        
     function mouseclick(d) {
-        // reload graph data
-        reload(12, 'Yearly');
+        // setText();
 
-        // set title
-        document.querySelector('.title').innerText = d.name;
+        // // reload graph data
+        // reload(12, 'Yearly');
 
-        // if (d3.select('.section').attr('class').indexOf('show') < 0) {
-        //     d3.select('.section').classed('show', true);
-        // } else {
-        //     d3.select('.section').classed('show', false);
-        // }
+        // // set title
+        // document.querySelector('.title').innerText = d.name;
+        // document.querySelector('.description').innerText = d.name;
 
+        
+        d3.selectAll('.section').classed('active', false);
+
+        d3.selectAll('.highlight').classed('highlight', false);
+
+        
         if (d3.select(d3.select('#' + d.id).node().parentNode).classed('clicked') > 0) {
             // Clear lines
             d3.selectAll('.inner_node')
-                .classed('clicked', false)
-                .each(function (d, j) {
-                    for (var i = 0; i < d.related_links.length; i++) {
-                        d3.select('#' + d.related_links[i]).attr('stroke-width', link_width);
-                        d3.select('#' + d.related_links[i]).attr('stroke', '#D9D9D9');
-                    }
-                });
+            .classed('clicked', false)
+            .each(function (d, j) {
+                for (var i = 0; i < d.related_links.length; i++) {
+                    d3.select('#' + d.related_links[i]).attr('stroke-width', link_width);
+                    d3.select('#' + d.related_links[i]).attr('stroke', '#D9D9D9');
+                }
+            });
 
-            // if (d3.select('.section').classed('show')) {
-            //     d3.select('.section').classed('show', true);
-            // } else {                
-            d3.select('.section').classed('show', false);
-            // }
+            d3.select('.sections').classed('show', false);
 
         } else {
-            d3.select('.section').classed('show', true);
+            d3.select('#desc-' + d.id).classed('active', true);
+            d3.select('.sections').classed('show', true);
+
+            for (var i = 0; i < d.related_nodes.length; i++) {
+                d3.select('#' + d.related_nodes[i]).classed('highlight', true);
+                // d3.select('#' + d.related_nodes[i] + '-txt').attr("font-weight", 'normal');
+            }
 
             d3.selectAll('.inner_node')
                 .classed('clicked', false)
@@ -382,12 +385,11 @@ function init() {
                 d3.select('#' + d.related_links[i]).attr('stroke-width', '3px');
                 d3.select('#' + d.related_links[i]).attr('stroke', '#2500db');
             }
+
         }
+
+        rscroll(d);
     }
-}
+// }
 
-
-
-
-
-
+// init();
